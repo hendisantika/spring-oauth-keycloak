@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:16-alpine3.20
+    image: postgres:16.4-alpine3.20
     restart: unless-stopped
     healthcheck:
       test: [ "CMD", "pg_isready", "-U", "keycloak" ]
@@ -15,7 +15,7 @@ services:
           size: 100000000
 
   keycloak:
-    image: quay.io/keycloak/keycloak:24.0.4
+    image: quay.io/keycloak/keycloak:25.0.2
     command: [ "start-dev", "--import-realm" ]
     restart: unless-stopped
     environment:
@@ -29,6 +29,6 @@ services:
       KEYCLOAK_ADMIN: yuji
       KEYCLOAK_ADMIN_PASSWORD: S3cret
     ports:
-      - 8080:8080
+      - "8080:8080"
     volumes:
       - ./keycloak/realm.json:/opt/keycloak/data/import/realm.json:ro
